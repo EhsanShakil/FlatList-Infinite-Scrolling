@@ -27,6 +27,9 @@ const App = () => {
         console.log('resJson', resJson);
         let _data = [...data, ...resJson];
         setData(_data);
+        if (_data != '') {
+          setLoading(false);
+        }
       });
   };
 
