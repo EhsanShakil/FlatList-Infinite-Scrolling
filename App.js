@@ -61,7 +61,13 @@ const App = () => {
     console.log('count', nextCount);
     getData(nextCount);
   };
-
+  const emptyComponent = () => {
+    return (
+      <View>
+        <Text>No Data Found</Text>
+      </View>
+    );
+  };
   return (
     <FlatList
       style={style.header}
@@ -71,6 +77,7 @@ const App = () => {
       ListFooterComponent={renderFooter}
       onEndReached={loadMore}
       onEndReachedThreshold={1}
+      ListEmptyComponent={emptyComponent}
     />
   );
 };
