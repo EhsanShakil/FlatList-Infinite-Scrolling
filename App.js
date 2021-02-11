@@ -6,6 +6,7 @@ import {
   Image,
   ActivityIndicator,
   StyleSheet,
+  RefreshControl,
 } from 'react-native';
 
 const App = () => {
@@ -25,7 +26,7 @@ const App = () => {
       .then((res) => res.json())
       .then((resJson) => {
         console.log('resJson', resJson);
-        let _data = [...data, ...resJson];
+        let _data = count === 0 ? resJson : [...resJson, ...data];
         setData(_data);
         if (_data != '') {
           setLoading(false);
@@ -68,6 +69,11 @@ const App = () => {
       </View>
     );
   };
+  const onRefresh = () => {
+    setRefreshing(false);
+    setStart(0);
+    getData(0);
+  };
   return (
     <FlatList
       style={style.header}
@@ -78,6 +84,9 @@ const App = () => {
       onEndReached={loadMore}
       onEndReachedThreshold={1}
       ListEmptyComponent={emptyComponent}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
     />
   );
 };
